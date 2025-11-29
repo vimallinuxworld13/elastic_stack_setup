@@ -1,0 +1,15 @@
+KQL:
+agent.type : filebeat and host.os.platform : rhel
+
+host.os.platform: ubuntu or  host.os.platform : rhel
+
+
+ES/QL:
+FROM apache-access-index-2025.11.29 | STATS total_bytes=SUM(bytes)
+
+FROM apache-access-index-2025.11.29 | STATS SUM(bytes) BY clientip
+
+FROM apache-access-index-2025.11.29 | STATS total_bytes=SUM(bytes) BY clientip | SORT total_bytes DESC
+
+FROM apache-access-index-2025.11.29  | EVAL minute=DATE_TRUNC(1 minute, @timestamp) | STATS total_bytes=SUM(bytes) BY minute
+
