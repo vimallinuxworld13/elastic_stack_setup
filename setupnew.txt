@@ -1,0 +1,173 @@
+   1  yum install docker -y
+    2  systemctl  start docker
+    3  docker network create elastic
+    4  docker run --name es01 -dit -p 9200:9200 --net elastic  docker.elastic.co/elasticsearch/elasticsearch:9.2.1
+    5  docker run --name kib01  -e XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=3e54c5cd0b159bcd5f24b6f3f5650b1a -dit --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:9.2.1
+    6  curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.19.9-x86_64.rpm
+    7  sudo rpm -vi filebeat-8.19.9-x86_64.rpm
+    8  yum install httpd
+    9  systemctl start httpd
+   10  cd /var/www/html/
+   11  ls
+   12  cat > index.html
+   13  cat > vimal.html
+   14  ls
+   15  cat /var/log/httpd/access_log
+   16  filebeat module list
+   17  filebeat modules list
+   18  filebeat modules enable apache
+   19  filebeat modules list
+   20  systemctl start filebeat
+   21  cd /etc/filebeat/
+   22  ls
+   23  vim filebeat.yml
+   24  docker ps
+   25  docker logs es01
+   26  sysctl  vm.max_map_count 65530
+   27  sysctl  vm.max_map_count=65530
+   28  sysctl  vm.max_map_count
+   29  docker start es01
+   30  docker ps
+   31  docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+   32  docker ps
+   33  docker logs es01
+   34  sysctl  vm.max_map_count=262144
+   35  sysctl  vm.max_map_count
+   36  docker start es01
+   37  docker ps
+   38  docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+   39  docker ps
+   40  history
+   41  docker ps
+   42  docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+   43  docker ps
+   44  docker rm -f es01
+   45  docker run --name es01 -dit -p 9200:9200 --net elastic  -m 1GB docker.elastic.co/elasticsearch/elasticsearch:9.2.1
+   46  docker ps
+   47  history
+   48  docker ps
+   49  docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+   50  docker ps
+   51  docker logs es01
+   52  docker ps
+   53  docker start es01
+   54  docker ps
+   55  docker logs -f es01
+   56  docker ps
+   57  docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+   58  docker ps
+   59  free -m
+   60  echo 3 > /proc/sys/vm/drop_caches
+   61  setenforce 0
+   62  docker start es01
+   63  docker logs -f es01
+   64  docker ps
+   65  docker exec -i  es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+   66  docker exec -it  es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+   67  docker ps
+   68  docker exec -it es01 bash
+   69  docker rm -f $(docker ps -a -q)
+   70  docker ps -a
+   71  docker run --name es01 -dit -p 9200:9200 --net elastic  -m 1GB docker.elastic.co/elasticsearch/elasticsearch:9.2.1
+   72  docker run --name kib01  -e XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=3e54c5cd0b159bcd5f24b6f3f5650b1a -dit --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:9.2.1
+   73  docker ps
+   74  docker logs -f es01
+   75  docker logs -f kib01
+   76  docker logs -f es01
+   77  cd
+   78  mkdir  /mypipelogstash
+   79  cd /mypipelogstash
+   80  wget https://raw.githubusercontent.com/vimallinuxworld13/elasticsttack_training_dec_2025/refs/heads/master/beat-logstash-grok-es.conf
+   81  docker logs -f es01
+   82  docker logs -f es01  |  grep elastic
+   83  docker logs -f es01  |  grep password
+   84  docker logs -f es01  |  grep -A5 password
+   85  ls
+   86  vim beat-logstash-grok-es.conf
+   87  pwd
+   88  ls
+   89  docker run -dit --net elastic  -p 5044:5044  --name logstash --rm   -v   /mypipelogstash:/code docker.elastic.co/logstash/logstash:9.2.1  -f /code/beat-logstash-grok-es.conf
+   90  docker ps
+   91  docker logs -f logstash
+   92  docker ps
+   93  free -m
+   94  docker logs -f es01
+   95  docker start es01
+   96  docker logs -f es01
+   97  docker ps
+   98  docker logs -f logstash
+   99  docker ps
+  100  docker logs -f logstash
+  101  docker ps
+  102  docker rm -f logstash
+  103  pwd
+  104  docker run -dit --net elastic  -p 5044:5044  --name logstash --rm   -v   /mypipelogstash:/code docker.elastic.co/logstash/logstash:9.2.1  -f /code/beat-logstash-grok-es.conf
+  105  docker logs -f logstash
+  106  systemctl restart filebeat
+  107  docker logs -f logstash
+  108  ls
+  109  vim beat-logstash-grok-es.conf
+  110  docker logs -f logstash
+  111  docker rm -f logstash
+  112  docker run -dit --net elastic  -p 5044:5044  --name logstash --rm   -v   /mypipelogstash:/code docker.elastic.co/logstash/logstash:9.2.1  -f /code/beat-logstash-grok-es.conf
+  113  cd /etc/filebeat/
+  114  ls
+  115  cd modules.d/
+  116  ls
+  117  vim apache.yml
+  118  systemctl restart filebeat
+  119  docker logs -f logstash
+  120  cat /var/log/httpd/access_log
+  121  vim /etc/httpd/conf/httpd.conf
+  122  cd /mypipelogstash/
+  123  ls
+  124  vim beat-logstash-grok-es.conf
+  125  docker logs -f logstash
+  126  docker rm  -f logstash
+  127  pwd
+  128  ls
+  129  docker run -dit --net elastic  -p 5044:5044  --name logstash --rm   -v   /mypipelogstash:/code docker.elastic.co/logstash/logstash:9.2.1  -f /code/beat-logstash-grok-es.conf
+  130  docker ps
+  131  docker logs -f logstash
+  132  cat /var/log/filebeat/filebeat-20251221*
+  133  cd /var/log/filebeat/
+  134  ls -rtl
+  135  cat filebeat-20251221-2.ndjson
+  136  cd /etc/filebeat/
+  137  ls
+  138  vim filebeat.yml
+  139  cd /mypipelogstash/
+  140  ls
+  141  vim beat-logstash-grok-es.conf
+  142  systemctl restart filebeat
+  143  systemctl status  filebeat
+  144  systemctl restart filebeat
+  145  systemctl status  filebeat
+  146  cd /etc/filebeat/
+  147  lks
+  148  ls
+  149  cd modules.d/
+  150  ls
+  151  vim apache.yml
+  152  cd ..
+  153  ls
+  154  vim filebeat.yml
+  155  ls
+  156  docker ps
+  157  curl localhost:5044
+  158  curl localhost:5044/api
+  159  vim filebeat.yml
+  160  filebeat -e
+  161  vim filebeat.yml
+  162  filebeat -e
+  163  systemctl restart filebeat
+  164  systemctl status  filebeat
+  165  docker logs -f logstash
+  166  docker ps
+  167  free -m
+  168  docker start es01
+  169  free -m
+  170  docker ps
+  171  docker logs -f es01
+  172  docker ps
+  173  history
